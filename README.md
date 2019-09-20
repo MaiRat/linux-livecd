@@ -21,3 +21,8 @@ Q4/2019.
 ## Contribute
 
 You are welcome to test and submit issues as well as patches/pull-requests.
+
+## Target architecture(s)
+
+The first target is x86-32. More is planned.
+x86-64, arm*
