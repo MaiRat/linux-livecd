@@ -32,3 +32,7 @@ You are welcome to test and submit issues as well as patches/pull-requests.
 
 The first target is x86-32. More is planned.
 x86-64, arm*
+
+## Build
+
+Simply run make. You need a complete build environment, with gcc, binutils, make, etc.
