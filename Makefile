@@ -30,7 +30,7 @@ export HTTP_BLFS_PATCHES ?= http://www.linuxfromscratch.org/patches/blfs/9.0/
 
 # Default paper size for groff.
 export pagesize ?= letter
-export JOBS ?= 12
+export JOBS ?= 2
 
 #==============================================================================
 # The following variables are not expected to be changed, but could be, if you
