@@ -16,7 +16,7 @@ Midnight Commander optionally with slang (or not).
 ## Use it / start up
 
 Insert and boot from CD. Type "linux" or "linux64" and press return key. If
-you want to use the graphical environment, append " vga=<vga-code>" to the
+you want to use the graphical environment, append " vga=<<vga-code>>" to the
 boot command line.
 
 ## Roadmap
