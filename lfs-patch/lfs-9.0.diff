@@ -65,8 +65,17 @@ diff -Naur ../trunk/isolinux/isolinux.cfg trunk.new/isolinux/isolinux.cfg
 +  append initrd=initramfs_data64_cpio.gz
 diff -Naur ../trunk/Makefile trunk.new/Makefile
 --- ../trunk/Makefile	2010-06-14 05:29:42.000000000 +0200
-+++ trunk.new/Makefile	2019-11-12 23:56:26.754451924 +0100
-@@ -23,10 +23,14 @@
++++ trunk.new/Makefile	2019-11-14 00:16:14.392178315 +0100
+@@ -5,6 +5,8 @@
+ # Several additions and edits by Alexander Patrakov, Justin Knierim and
+ # Thomas Pegg
+ #
++# LFS/BLFS 9.0 refresh by Maik Ratzmer
++#
+ # These scripts are published under the GNU General Public License, version 2
+ #
+ #==============================================================================
+@@ -23,10 +25,14 @@
  export timezone ?= America/New_York
  
  # Remote server location for packages
@@ -82,7 +91,7 @@ diff -Naur ../trunk/Makefile trunk.new/Makefile
  
  #==============================================================================
  # The following variables are not expected to be changed, but could be, if you
-@@ -47,6 +51,9 @@
+@@ -47,6 +53,9 @@
  export CXXFLAGS := $(CFLAGS)
  export LDFLAGS := -s
  
@@ -92,7 +101,7 @@ diff -Naur ../trunk/Makefile trunk.new/Makefile
  # Set the base architecture
  # Currently supported: i686
  # FIXME: Verify that the host is one of the above
-@@ -67,10 +74,10 @@
+@@ -67,10 +76,10 @@
  export MY_ROOT := /$(shell basename $(MY_BASE))
  
  # Free disk space needed for the build.
@@ -105,7 +114,7 @@ diff -Naur ../trunk/Makefile trunk.new/Makefile
  
  #==============================================================================
  # The following variables are not expected to be changed
-@@ -124,10 +131,10 @@
+@@ -124,10 +133,10 @@
  
  base: $(MKTREE) builduser build-tools
  	@chroot "$(MP)" $(chenv-pre-bash) 'set +h && \
@@ -120,7 +129,7 @@ diff -Naur ../trunk/Makefile trunk.new/Makefile
  	@install -m644 etc/issue* $(MP)/etc
  	@touch $@
  
-@@ -150,6 +157,14 @@
+@@ -150,6 +159,14 @@
  	-mkdir -p $(MP)/{proc,sys,dev/shm,dev/pts}
  	-mount -t proc proc $(MP)/proc
  	-mount -t sysfs sysfs $(MP)/sys
@@ -135,7 +144,7 @@ diff -Naur ../trunk/Makefile trunk.new/Makefile
  	-mount -t tmpfs shm $(MP)/dev/shm
  	-mount -t devpts devpts $(MP)/dev/pts
  	-mkdir -pv $(MP)/{bin,boot,etc,home,lib,mnt,opt}
-@@ -165,13 +180,6 @@
+@@ -165,13 +182,6 @@
  	-for dir in $(MP)/usr $(MP)/usr/local; do ln -sv share/{man,doc,info} $$dir ; done
  	-mkdir -v $(MP)/var/{lock,log,mail,run,spool}
  	-mkdir -pv $(MP)/var/{opt,cache,lib/{misc,locate},local}
@@ -149,7 +158,7 @@ diff -Naur ../trunk/Makefile trunk.new/Makefile
  	-ln -s /proc/self/fd $(MP)/dev/fd
  	-ln -s /proc/self/fd/0 $(MP)/dev/stdin
  	-ln -s /proc/self/fd/1 $(MP)/dev/stdout
-@@ -192,6 +200,7 @@
+@@ -192,6 +202,7 @@
  builduser:
  	@-groupadd $(USER)
  	@-useradd -s /bin/bash -g $(USER) -m -k /dev/null $(USER)
@@ -157,7 +166,7 @@ diff -Naur ../trunk/Makefile trunk.new/Makefile
  	@-chown -R $(USER):$(USER) $(MY_BUILD)$(TT) $(MY_BUILD)$(SRC) $(MY_BASE)
  	@touch $@
  
-@@ -199,7 +208,7 @@
+@@ -199,7 +210,7 @@
  	@su - $(USER) -c "$(toolsenv) '$(toolsbash) && make bash-prebuild'"
  	@su - $(USER) -c "$(toolsenv) '$(toolsbash) && make SHELL=$(TT)/bin/sh wget-prebuild'"
  	@su - $(USER) -c "$(toolsenv) '$(toolsbash) && make SHELL=$(TT)/bin/sh coreutils-prebuild'"
@@ -166,7 +175,7 @@ diff -Naur ../trunk/Makefile trunk.new/Makefile
  	@cp /etc/resolv.conf $(TT)/etc
  	@rm -rf $(TT)/{,share/}{info,man}
  	@-ln -s $(TT)/bin/bash $(MP)/bin/bash
-@@ -218,61 +227,68 @@
+@@ -218,61 +229,68 @@
  	@touch $@
  
  tools: \
@@ -250,7 +259,7 @@ diff -Naur ../trunk/Makefile trunk.new/Makefile
  	bash-stage2
  
  createfiles:
-@@ -284,232 +300,177 @@
+@@ -284,232 +302,177 @@
  	@touch /var/run/utmp /var/log/{btmp,lastlog,wtmp}
  	@chgrp utmp /var/run/utmp /var/log/lastlog
  	@chmod 664 /var/run/utmp /var/log/lastlog
@@ -594,7 +603,7 @@ diff -Naur ../trunk/Makefile trunk.new/Makefile
  	update-caches
  
  final-environment:
-@@ -570,8 +531,8 @@
+@@ -570,8 +533,8 @@
  	make -C packages/$* stage3
  
  update-caches:
@@ -605,7 +614,7 @@ diff -Naur ../trunk/Makefile trunk.new/Makefile
  	echo 'dummy / ext2 defaults 0 0' >/etc/mtab
  	updatedb --prunepaths='/sources /tools /lfs-livecd /lfs-sources /proc /sys /dev /tmp /var/tmp'
  	echo >/etc/mtab
-@@ -606,14 +567,11 @@
+@@ -606,14 +569,11 @@
  	# This is not a bug.
  	@-e2fsck -f -p root.ext2
  	@$(TT)/bin/mkzftree -F root.ext2 $(MY_BUILD)/iso/root.ext2
@@ -622,7 +631,7 @@ diff -Naur ../trunk/Makefile trunk.new/Makefile
  
  #==============================================================================
  # Targets to clean the tree.
-@@ -654,7 +612,7 @@
+@@ -654,7 +614,7 @@
  	-umount $(MP)$(MY_ROOT)
  	-rmdir $(MP)$(SRC) $(MP)$(TT) $(MP)$(MY_ROOT)
  	-rmdir $(MP)/boot $(MP)$(LFSSRC)
