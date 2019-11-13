@@ -5,6 +5,8 @@
 # Several additions and edits by Alexander Patrakov, Justin Knierim and
 # Thomas Pegg
 #
+# LFS/BLFS 9.0 refresh by Maik Ratzmer
+#
 # These scripts are published under the GNU General Public License, version 2
 #
 #==============================================================================
