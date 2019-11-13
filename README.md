@@ -17,7 +17,7 @@ Midnight Commander optionally with slang (or not).
 
 Insert and boot from CD. Type "linux" or "linux64" and press return key. If
 you want to use the graphical environment, append " vga=*vga-code*" to the
-boot command line.
+boot command line. For example, 980 refers to 1920x1080.
 
 ## Roadmap
 
