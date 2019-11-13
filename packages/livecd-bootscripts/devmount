@@ -1,0 +1,17 @@
+#!/bin/sh
+########################################################################
+# Begin $rc_base/init.d/langconf
+#
+# Description : Language and Keymap Configuration Script for the Live CD
+#
+# Authors     : Alexander E. Patrakov
+#
+# Version     : 00.00
+#
+# Notes       :
+#
+########################################################################
+
+# Assume that noninteractive configuration is wanted if LANG is set
+mount -t devtmpfs none /dev
+

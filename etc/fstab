@@ -1,0 +1,11 @@
+# Begin /etc/fstab
+
+# filesystem		mount-point	fs-type		options			dump	fsck-order
+/dev/mapper/lfs-cd	/		ext2		defaults		0	0
+proc			/proc		proc		defaults		0	0
+sysfs			/sys		sysfs		defaults		0	0
+devpts			/dev/pts	devpts		gid=4,mode=620		0	0
+tmpfs			/run		tmpfs		defaults		0	0
+devtmpfs		/dev		devtmpfs	mode=0755,nosuid	0	0
+
+# End /etc/fstab
