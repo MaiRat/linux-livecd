@@ -13,10 +13,16 @@ Well, LinuxFromScratch is a kind of distribution, too. But if you know LFS alrea
 you are aware of the dynamic modularized package system. E.g. you can compile the
 Midnight Commander optionally with slang (or not).
 
+## Use it / start up
+
+Insert and boot from CD. Type "linux" or "linux64" and press return key. If
+you want to use the graphical environment, append " vga=*vga-code*" to the
+boot command line.
+
 ## Roadmap
 
-The first preview of the linux-livecd based on LFS and BLFS 9.0 will be released in
-Q4/2019.
+The first preview of the linux-livecd based on LFS and BLFS 9.0 is now available
+on this repo.
 
 ## Contribute
 
